@@ -1,6 +1,6 @@
 <h2>Python cPanel</h2>
 
-<img src='https://pypip.in/v/pycpanel/badge.png'> &nbsp; <img src='https://pypip.in/d/pycpanel/badge.png'>
+<a href='https://pypi.python.org/pypi/pycpanel'><img src='https://pypip.in/v/pycpanel/badge.png'></a>
 
 A Python wrapper for the cPanel API.
 
