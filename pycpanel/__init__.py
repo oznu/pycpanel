@@ -32,6 +32,7 @@ class conn(object):
             'cpanel_jsonapi_apiversion' : version,
         }
         if params != None: params = dict(generic.items() + params.items())
+        elif params == None: params = generic
         r = self.__session__.get(self.__hostname__ + api, params=params, verify=self.__verify__)
         if r.status_code == 403: raise Exception('Access denied:  please check the username and hash/password.' % hostname)
         if api == 'json-api/cpanel': return json.loads(r.text)['cpanelresult']['data']

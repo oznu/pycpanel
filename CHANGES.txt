@@ -1,1 +1,2 @@
 v0.1, 2013-11-24  -- Initial release.
+v0.1.1, 2013-11-24  -- bug fix on API 2 function.
