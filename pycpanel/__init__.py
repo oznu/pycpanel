@@ -1,5 +1,8 @@
 __title__ = 'pycpanel'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
+__date__ = '2013-11-24'
+__licence__ = 'Apache License Version 2.0'
+__author__ = 'OZNU'
 
 import requests, json
 
