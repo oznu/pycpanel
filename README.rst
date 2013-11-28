@@ -3,7 +3,10 @@ Python cPanel
 
 .. image:: https://pypip.in/v/pycpanel/badge.png
         :target: https://pypi.python.org/pypi/pycpanel
-        
+
+.. image:: https://pypip.in/d/pycpanel/badge.png
+        :target: https://pypi.python.org/pypi/pycpanel
+
 A Python wrapper for the cPanel API.
 
 .. contents::
