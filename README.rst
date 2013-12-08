@@ -7,7 +7,7 @@ Python cPanel
 .. image:: https://pypip.in/d/pycpanel/badge.png
         :target: https://pypi.python.org/pypi/pycpanel
 
-A Python wrapper for the cPanel API.
+A Python client for the cPanel API and CSF.
 
 .. contents::
     :local:
@@ -160,4 +160,101 @@ This example creates a new email account (steve@mydomain.com.au) for the user ac
     
     server.cpanel_api('Email', 'addpop', 'user1', params=params)
     
+    
+=========================
+ConfigServer Firewall API
+=========================
+
+To use the ConfigServer Firewall (CSF) API, the CSF cPanel plugin must be installed and active on your cPanel server.
+
+The CSF API can be initialized as follows:
+
+.. code:: python
+
+    import pycpanel
+    
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
+   
+    csf = server.csf()
+    
+
+Unblock IP Address
+------------------
+
+This function will remove an IP address from the firewall (temp and perm blocks). 
+
+.. code:: python
+
+    csf = server.csf()
+    
+    csf.unblock('192.168.0.1')
+    
+    # Returns True if succesfull.
+
+Block IP Address
+----------------
+
+This function will block an IP address on the firewall and add it to the deny file (csf.deny).
+
+.. code:: python
+
+    csf = server.csf()
+    
+    csf.deny('192.168.0.1')
+    
+    # Returns True if succesfull.
+
+Optionaly, a comment may be left to explain why the IP address was blocked:
+
+.. code:: python
+
+    csf = server.csf()
+    
+    csf.deny('192.168.0.1', comment='Why the IP was blocked")
+    
+    # Returns True if succesfull.
+    
+    
+Allow IP Address
+----------------
+
+This function will allow an IP address through the firewall and add it to the allow file (csf.allow).
+
+.. code:: python
+
+    csf = server.csf()
+    
+    csf.allow('192.168.0.1')
+    
+    # Returns True if succesfull.
+
+Optionaly, a comment may be left to explain why the IP address was allowed through the firewall:
+
+.. code:: python
+
+    csf = server.csf()
+    
+    csf.allow('192.168.0.1', comment='Why the IP was allowed")
+    
+    # Returns True if succesfull.
+
+
+Ignore IP Address
+-----------------
+
+This function will ignore an IP address in lfd and add it to the ignore file (csf.ignore) and restart lfd.
+
+.. code:: python
+
+    csf = server.csf()
+    
+    csf.ignore('192.168.0.1')
+    
+    # Returns True if succesfull.
+
+
+
+
+
+
 
