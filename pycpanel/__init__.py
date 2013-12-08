@@ -1,10 +1,13 @@
 __title__ = 'pycpanel'
-__version__ = '0.1.1'
-__date__ = '2013-11-24'
+__version__ = '0.1.3'
+__date__ = '2013-12-08'
 __licence__ = 'Apache License Version 2.0'
-__author__ = 'OZNU'
+__author__ = 'oznu'
 
 import requests, json
+
+def unauthorised():
+    raise Exception('Access denied:  please check the username and hash/password.')
 
 class conn(object):
     def __init__(self, hostname, username='root', hash=None, password=None, ssl=True,  verify=False, check_conn=True):
@@ -12,18 +15,17 @@ class conn(object):
         if hash != None: hash = hash.replace('\r\n', '')
         if hash != None: self.__session__.headers.update({'Authorization' : 'WHM %s:%s' % (username,hash)})
         if password != None: self.__session__.auth = (username, password)
-        if ssl == True: self.__hostname__ = 'https://' + str(hostname) + ':2087/'
-        elif ssl == False: self.__hostname__ = 'http://' + str(hostname) + ':2086/'
-        self.__verify__ = verify
+        if ssl == True: self.hostname = 'https://' + str(hostname) + ':2087/'
+        elif ssl == False: self.hostname = 'http://' + str(hostname) + ':2086/'
+        self.verify = verify
         try:
-            if check_conn == True: self.__apilist__ = self.api('applist')['app']
-            else: self.__apilist__ = None
-        except:
-            raise Exception('Error establishing a connection to %s.' % self.__hostname__)
+            if check_conn == True: self.apilist = self.api('applist')['app']
+            else: self.apilist = None
+        except: unauthorised() 
 
     def api(self, command, params=None, api='json-api'):
-        r = self.__session__.get(self.__hostname__ + api  + '/' +  command, params=params, verify=self.__verify__)
-        if r.status_code == 403: raise Exception('Access denied:  please check the username and hash/password.' % hostname)
+        r = self.__session__.get(self.hostname + api  + '/' +  command, params=params, verify=self.verify)
+        if r.status_code == 403: unauthorised()
         if api == 'json-api': return json.loads(r.text)
         return r.text
 
@@ -36,12 +38,41 @@ class conn(object):
         }
         if params != None: params = dict(generic.items() + params.items())
         elif params == None: params = generic
-        r = self.__session__.get(self.__hostname__ + api, params=params, verify=self.__verify__)
-        if r.status_code == 403: raise Exception('Access denied:  please check the username and hash/password.' % hostname)
+        r = self.__session__.get(self.hostname + api, params=params, verify=self.verify)
+        if r.status_code == 403: unauthorised()
         if api == 'json-api/cpanel': return json.loads(r.text)['cpanelresult']['data']
         return r.text
 
     def json_list(self):
-        if self.__apilist__ == None:
-            self.__apilist__ = self.api('applist')['app']
-        return self.__apilist__
+        if self.apilist == None:
+            self.apilist = self.api('applist')['app']
+        return self.apilist
+
+    def csf(self):
+        return self.CSF(self)
+
+
+    class CSF(object):
+        def __init__(self, conn):
+            self.conn = conn
+
+        def unblock(self,ip):
+            r = self.conn.__session__.post(self.conn.hostname + 'cgi/configserver/csf.cgi', data={ 'ip' : ip, 'action' : 'kill' }, verify=self.conn.verify)
+            if r.status_code == 200: return True
+            else: return unauthorised()
+
+        def deny(self,ip,comment=None):
+            r = self.conn.__session__.post(self.conn.hostname + 'cgi/configserver/csf.cgi', data={ 'ip' : ip, 'action' : 'qdeny', 'comment' : comment }, verify=self.conn.verify)
+            if r.status_code == 200: return True
+            else: return unauthorised()
+
+        def allow(self,ip,comment=None):
+            r = self.conn.__session__.post(self.conn.hostname + 'cgi/configserver/csf.cgi', data={ 'ip' : ip, 'action' : 'qallow', 'comment' : comment }, verify=self.conn.verify)
+            if r.status_code == 200: return True
+            else: return unauthorised()
+
+        def ignore(self,ip):
+            r = self.conn.__session__.post(self.conn.hostname + 'cgi/configserver/csf.cgi', data={ 'ip' : ip, 'action' : 'qignore' }, verify=self.conn.verify)
+            if r.status_code == 200: return True
+            else: return unauthorised()
+

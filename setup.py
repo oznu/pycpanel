@@ -2,14 +2,14 @@ from distutils.core import setup
 
 setup(
     name='pycpanel',
-    version='0.1.1',
-    author='OZNU',
+    version='0.1.3',
+    author='oznu',
     author_email='dev@oz.nu',
     packages=['pycpanel',],
     url='https://github.com/oznu/pycpanel',
-    license='LICENSE.txt',
-    description='Python module for the cPanel API.',
-    long_description=open('README.txt').read(),
+    license='Apache License',
+    description='Python Client for the cPanel API and CSF.',
+    long_description=open('README.rst').read(),
     install_requires=[
         "requests >= 2.0.0",
     ],
