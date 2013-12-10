@@ -2,10 +2,10 @@ Python cPanel
 =============
 
 .. image:: https://pypip.in/v/pycpanel/badge.png
-        :target: https://pypi.python.org/pypi/pycpanel
+        :target: https://crate.io/packages/pycpanel
 
 .. image:: https://pypip.in/d/pycpanel/badge.png
-        :target: https://pypi.python.org/pypi/pycpanel
+        :target: https://crate.io/packages/pycpanel
 
 A Python client for the cPanel API and CSF.
 
