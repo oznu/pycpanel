@@ -47,10 +47,10 @@ class conn(object):
         if self.apilist == None:
             self.apilist = self.api('applist')['app']
         return self.apilist
-
+ 
+    @property
     def csf(self):
         return self.CSF(self)
-
 
     class CSF(object):
         def __init__(self, conn):

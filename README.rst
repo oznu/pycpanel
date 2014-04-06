@@ -166,16 +166,6 @@ ConfigServer Firewall API
 =========================
 
 To use the ConfigServer Firewall (CSF) API, the CSF cPanel plugin must be installed and active on your cPanel server.
-
-The CSF API can be initialized as follows:
-
-.. code:: python
-
-    import pycpanel
-    
-    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
-   
-    csf = server.csf()
     
 
 Unblock IP Address
@@ -185,9 +175,9 @@ This function will remove an IP address from the firewall (temp and perm blocks)
 
 .. code:: python
 
-    csf = server.csf()
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
     
-    csf.unblock('192.168.0.1')
+    server.csf.unblock('192.168.0.1')
     
     # Returns True if succesfull.
 
@@ -198,9 +188,9 @@ This function will block an IP address on the firewall and add it to the deny fi
 
 .. code:: python
 
-    csf = server.csf()
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
     
-    csf.deny('192.168.0.1')
+    server.csf.deny('192.168.0.1')
     
     # Returns True if succesfull.
 
@@ -208,9 +198,9 @@ Optionaly, a comment may be left to explain why the IP address was blocked:
 
 .. code:: python
 
-    csf = server.csf()
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
     
-    csf.deny('192.168.0.1', comment='Why the IP was blocked")
+    server.csf.deny('192.168.0.1', comment='Why the IP was blocked")
     
     # Returns True if succesfull.
     
@@ -222,9 +212,9 @@ This function will allow an IP address through the firewall and add it to the al
 
 .. code:: python
 
-    csf = server.csf()
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
     
-    csf.allow('192.168.0.1')
+    server.csf.allow('192.168.0.1')
     
     # Returns True if succesfull.
 
@@ -232,9 +222,9 @@ Optionaly, a comment may be left to explain why the IP address was allowed throu
 
 .. code:: python
 
-    csf = server.csf()
-    
-    csf.allow('192.168.0.1', comment='Why the IP was allowed")
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
+
+    server.csf.allow('192.168.0.1', comment='Why the IP was allowed")
     
     # Returns True if succesfull.
 
@@ -246,9 +236,9 @@ This function will ignore an IP address in lfd and add it to the ignore file (cs
 
 .. code:: python
 
-    csf = server.csf()
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
     
-    csf.ignore('192.168.0.1')
+    server.csf.ignore('192.168.0.1')
     
     # Returns True if succesfull.
 

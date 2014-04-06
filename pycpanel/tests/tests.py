@@ -6,10 +6,10 @@ import unittest
 hostname = 'my.cpanelserver.com'
 hash = "hash without line breaks"
 password = 'password'
-cpanel_user = 'user'
+cpanel_user = 'user'  #not root
 
 
-""" Tests begin ""
+""" Tests begin """
 
 
 class PyCpanelTest(unittest.TestCase):
@@ -18,7 +18,6 @@ class PyCpanelTest(unittest.TestCase):
         """Test Password Authentication"""
 
         self.server = pycpanel.conn(hostname=hostname, password=password)
-        self.csf = self.server.csf()
         
     def testOne(self):
 
@@ -59,7 +58,7 @@ class PyCpanelTest(unittest.TestCase):
         """Test CSF Allow"""
 
         try:
-            result = self.csf.allow('192.168.1.1')
+            result = self.server.csf.allow('192.168.1.1')
         except: result = False
         self.assertTrue(result, 'Exception raised')
 
@@ -68,7 +67,7 @@ class PyCpanelTest(unittest.TestCase):
         """Test CSF Deny"""
 
         try:
-            result = self.csf.deny('192.168.1.1')
+            result = self.server.csf.deny('192.168.1.1')
         except: result = False
         self.assertTrue(result, 'Exception raised')
 
@@ -77,7 +76,7 @@ class PyCpanelTest(unittest.TestCase):
         """Test CSF Unblock"""
 
         try:
-            result = self.csf.unblock('192.168.1.1')
+            result = self.server.csf.unblock('192.168.1.1')
         except: result = False
         self.assertTrue(result, 'Exception raised')
    
@@ -87,7 +86,7 @@ class PyCpanelTest(unittest.TestCase):
         """Test CSF Ignore"""
 
         try:
-            result = self.csf.ignore('192.168.1.1')
+            result = self.server.csf.ignore('192.168.1.1')
         except: result = False
         self.assertTrue(result, 'Exception raised')
 
