@@ -12,7 +12,7 @@ def unauthorised():
 class conn(object):
     def __init__(self, hostname, username='root', hash=None, password=None, ssl=True,  verify=False, check_conn=True):
         self.__session__ = requests.Session()
-        if hash != None: hash = hash.replace('\r\n', '')
+        if hash != None: hash = hash.replace('\r', '').replace('\n', '')
         if hash != None: self.__session__.headers.update({'Authorization' : 'WHM %s:%s' % (username,hash)})
         if password != None: self.__session__.auth = (username, password)
         if ssl == True: self.hostname = 'https://' + str(hostname) + ':2087/'
