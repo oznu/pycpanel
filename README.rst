@@ -114,16 +114,16 @@ This exmaple will adjust the cPanel account with username 'user1' to have a limi
     
     server.api('modifyacct', params=params)
     
-======================
-cPanel API 2 Functions
-======================
+====================
+cPanel API Functions
+====================
 
 Detailed documentation for the cPanel API 2 Functions can be found here:
 http://docs.cpanel.net/twiki/bin/view/ApiDocs/Api2/WebHome
 
 .. code:: python
 
-    pycpanel.cpanel_api(module, function, user, params=None)
+    pycpanel.cpanel_api(module, function, user, params=None, version=2)
 
 
 API 2 Function without params
@@ -160,6 +160,26 @@ This example creates a new email account (steve@mydomain.com.au) for the user ac
     
     server.cpanel_api('Email', 'addpop', 'user1', params=params)
     
+
+Using cPanel API 1
+------------------
+
+You can cPanel API 1 calls by specifically making the API call as version 1.
+
+.. code:: python
+
+    import pycpanel
+
+    server = pycpanel.conn(hostname='myserver.com.au', password='mypassword')
+
+    params = {
+        'arg-0' : 'username',
+        'arg-1' : 'password',
+        'arg-2' : 'domain.tld',
+    }
+
+    server.cpanel_api('Email', 'addpop', 'user1', params=params, version=1)
+
     
 =========================
 ConfigServer Firewall API

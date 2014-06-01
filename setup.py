@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pycpanel',
-    version='0.1.4',
+    version='0.1.5',
     author='oznu',
     author_email='dev@oz.nu',
     packages=['pycpanel',],
