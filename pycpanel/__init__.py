@@ -40,7 +40,11 @@ class conn(object):
         elif params == None: params = generic
         r = self.__session__.get(self.hostname + api, params=params, verify=self.verify)
         if r.status_code == 403: unauthorised()
-        if api == 'json-api/cpanel': return json.loads(r.text)['cpanelresult']['data']
+        if api == 'json-api/cpanel':
+            if version == 1:
+                return json.loads(r.text)['data']
+            else:
+                return json.loads(r.text)['cpanelresult']['data']
         return r.text
 
     def json_list(self):
