@@ -4,9 +4,6 @@ Python cPanel
 .. image:: https://img.shields.io/pypi/v/pycpanel.svg
         :target: https://pypi.python.org/pypi/pycpanel/0.1.5
 
-.. image:: https://img.shields.io/pypi/dm/pycpanel.svg
-        :target: https://pypi.python.org/pypi/pycpanel/0.1.5
-
 A Python client for the cPanel API and CSF.
 
 .. contents::
